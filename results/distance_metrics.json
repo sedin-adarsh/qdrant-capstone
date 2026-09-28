@@ -41,13 +41,6 @@
     ],
     "euclid": [
       {
-        "id": 4746,
-        "category": "misc.forsale",
-        "score": 6.2031,
-        "snippet": "I have the following Nth Engine graphics cards for sale w/drivers for ...",
-        "vector_length": 2.623
-      },
-      {
         "id": 2556,
         "category": "comp.os.ms-windows.misc",
         "score": 6.2442,
@@ -74,6 +67,13 @@
         "score": 6.3948,
         "snippet": "Hi. I am having some interesting problems with my Boca graphics card, ...",
         "vector_length": 2.094
+      },
+      {
+        "id": 399,
+        "category": "comp.graphics",
+        "score": 6.4361,
+        "snippet": "FOR IMMEDIATE RELEASE Editorial Contact: Single Source Marketing: Myra...",
+        "vector_length": 2.154
       }
     ],
     "dot": [
@@ -106,8 +106,8 @@
         "vector_length": 3.92
       },
       {
-        "id": 5276,
-        "category": "comp.os.ms-windows.misc",
+        "id": 3998,
+        "category": "comp.graphics",
         "score": 9.5316,
         "snippet": "I am looking for a WINDOW 3.1 driver for Cornerstone DualPage (Corners...",
         "vector_length": 3.464
@@ -164,6 +164,13 @@
         "vector_length": 3.058
       },
       {
+        "id": 3399,
+        "category": "talk.politics.guns",
+        "score": 5.788,
+        "snippet": "Firearm? Let's not even consider long knives (swords), which were also...",
+        "vector_length": 2.907
+      },
+      {
         "id": 322,
         "category": "talk.politics.guns",
         "score": 5.9489,
@@ -183,13 +190,6 @@
         "score": 5.9824,
         "snippet": ": >> : >I'm not going to argue the issue of carrying weapons, but I wo...",
         "vector_length": 2.114
-      },
-      {
-        "id": 4362,
-        "category": "talk.politics.guns",
-        "score": 5.993,
-        "snippet": "I think that HCI people honestly believe that passing more gun control...",
-        "vector_length": 1.914
       }
     ],
     "dot": [
@@ -403,6 +403,13 @@
         "vector_length": 1.992
       },
       {
+        "id": 3688,
+        "category": "rec.sport.hockey",
+        "score": 6.2402,
+        "snippet": "Ottawa picks first, because they had fewer wins during the season, the...",
+        "vector_length": 3.138
+      },
+      {
         "id": 1901,
         "category": "rec.sport.hockey",
         "score": 6.367,
@@ -415,13 +422,6 @@
         "score": 6.4003,
         "snippet": "The Hawks win!! Jermey Roenick scored his 50 th goal and the Hawks put...",
         "vector_length": 3.482
-      },
-      {
-        "id": 2307,
-        "category": "rec.sport.hockey",
-        "score": 6.4182,
-        "snippet": "Tonight will see the Toronto Maple Leafs, as some have guessed, come o...",
-        "vector_length": 2.593
       }
     ],
     "dot": [

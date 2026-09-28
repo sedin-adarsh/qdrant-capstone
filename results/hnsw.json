@@ -1,0 +1,768 @@
+{
+  "latency_runs_per_search": 10,
+  "summary": [
+    {
+      "method": "Exact (Qdrant)",
+      "setting": "exact=True",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 4.185,
+      "queries": 5
+    },
+    {
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=16",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 2.33,
+      "queries": 5
+    },
+    {
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=64",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 2.366,
+      "queries": 5
+    },
+    {
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=128",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 2.637,
+      "queries": 5
+    },
+    {
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=16",
+      "avg_overlap": 0.6,
+      "avg_latency_ms": 2.389,
+      "queries": 5
+    },
+    {
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=64",
+      "avg_overlap": 0.68,
+      "avg_latency_ms": 2.425,
+      "queries": 5
+    },
+    {
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=128",
+      "avg_overlap": 0.92,
+      "avg_latency_ms": 2.411,
+      "queries": 5
+    }
+  ],
+  "exact": [
+    {
+      "query_index": 0,
+      "method": "Exact (Qdrant)",
+      "setting": "exact=True",
+      "ids": [
+        4746,
+        175,
+        2556,
+        1880,
+        4342
+      ],
+      "overlap": 1.0,
+      "latency_ms": 3.231,
+      "hits": [
+        {
+          "id": 4746,
+          "category": "misc.forsale",
+          "score": 0.4824,
+          "snippet": "I have the following Nth Engine graphics cards for sale w/drivers for ..."
+        },
+        {
+          "id": 175,
+          "category": "comp.os.ms-windows.misc",
+          "score": 0.4697,
+          "snippet": "Yesterday, a friend of mine got a new driver for his card that more th..."
+        },
+        {
+          "id": 2556,
+          "category": "comp.os.ms-windows.misc",
+          "score": 0.4666,
+          "snippet": "I would like to find a Windows 3.x driver for a video board that is ba..."
+        },
+        {
+          "id": 1880,
+          "category": "comp.os.ms-windows.misc",
+          "score": 0.4374,
+          "snippet": "Hi. I am having some interesting problems with my Boca graphics card, ..."
+        },
+        {
+          "id": 4342,
+          "category": "comp.os.ms-windows.misc",
+          "score": 0.4347,
+          "snippet": "Hello. I purchased a video card called ET-4000 true color card which c..."
+        }
+      ]
+    },
+    {
+      "query_index": 1,
+      "method": "Exact (Qdrant)",
+      "setting": "exact=True",
+      "ids": [
+        322,
+        1425,
+        1159,
+        4362,
+        2886
+      ],
+      "overlap": 1.0,
+      "latency_ms": 5.072,
+      "hits": [
+        {
+          "id": 322,
+          "category": "talk.politics.guns",
+          "score": 0.6616,
+          "snippet": "I agree. Sad, but true. Please name one. .... Upon which our Bill of R..."
+        },
+        {
+          "id": 1425,
+          "category": "talk.politics.guns",
+          "score": 0.6374,
+          "snippet": "Though I agree this is not the place to discuss guns, I note in passin..."
+        },
+        {
+          "id": 1159,
+          "category": "talk.politics.guns",
+          "score": 0.5917,
+          "snippet": "Not so. Surveys have shown while the public thinks certain types of gu..."
+        },
+        {
+          "id": 4362,
+          "category": "talk.politics.guns",
+          "score": 0.5818,
+          "snippet": "I think that HCI people honestly believe that passing more gun control..."
+        },
+        {
+          "id": 2886,
+          "category": "talk.politics.guns",
+          "score": 0.5657,
+          "snippet": "And you'd be wrong about that too. Note that Texas isn't unique in thi..."
+        }
+      ]
+    },
+    {
+      "query_index": 2,
+      "method": "Exact (Qdrant)",
+      "setting": "exact=True",
+      "ids": [
+        2079,
+        1898,
+        5623,
+        2137,
+        1177
+      ],
+      "overlap": 1.0,
+      "latency_ms": 5.112,
+      "hits": [
+        {
+          "id": 2079,
+          "category": "sci.space",
+          "score": 0.5243,
+          "snippet": "Sorry for asking a question that's not entirely based on the technical..."
+        },
+        {
+          "id": 1898,
+          "category": "sci.space",
+          "score": 0.4511,
+          "snippet": "SSF is up for redesign again. Let's do it right this time! Let's step ..."
+        },
+        {
+          "id": 5623,
+          "category": "sci.space",
+          "score": 0.4414,
+          "snippet": "There is a guy in NASA Johnson Space Center that might answer your que..."
+        },
+        {
+          "id": 2137,
+          "category": "sci.space",
+          "score": 0.4386,
+          "snippet": "a yes, but the improvement in boost orbit to the HST is Significant, a..."
+        },
+        {
+          "id": 1177,
+          "category": "sci.space",
+          "score": 0.4264,
+          "snippet": "Back in January and February there were several articles (Wash Post, T..."
+        }
+      ]
+    },
+    {
+      "query_index": 3,
+      "method": "Exact (Qdrant)",
+      "setting": "exact=True",
+      "ids": [
+        2969,
+        4996,
+        1888,
+        5387,
+        1901
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.928,
+      "hits": [
+        {
+          "id": 2969,
+          "category": "rec.sport.hockey",
+          "score": 0.6883,
+          "snippet": "Here is yet another prediction for them great playoffs! (you may laugh..."
+        },
+        {
+          "id": 4996,
+          "category": "rec.sport.hockey",
+          "score": 0.6671,
+          "snippet": "Here are my predictions (try not to laugh hysterically) Somebody save ..."
+        },
+        {
+          "id": 1888,
+          "category": "rec.sport.hockey",
+          "score": 0.6446,
+          "snippet": "Here are the standings after game 2 of each of the divisional semi-fin..."
+        },
+        {
+          "id": 5387,
+          "category": "rec.sport.hockey",
+          "score": 0.6222,
+          "snippet": "3rd uptade: Here are the standings for the poll after 39 votes: 5 poin..."
+        },
+        {
+          "id": 1901,
+          "category": "rec.sport.hockey",
+          "score": 0.6084,
+          "snippet": "Stanley Cup Playoff stats through games played Sunday, April 25 1993 -..."
+        }
+      ]
+    },
+    {
+      "query_index": 4,
+      "method": "Exact (Qdrant)",
+      "setting": "exact=True",
+      "ids": [
+        1409,
+        3966,
+        4872,
+        5256,
+        5971
+      ],
+      "overlap": 1.0,
+      "latency_ms": 4.583,
+      "hits": [
+        {
+          "id": 1409,
+          "category": "sci.crypt",
+          "score": 0.7068,
+          "snippet": "From: brad@clarinet.com (Brad Templeton) Let's assume, for the moment,..."
+        },
+        {
+          "id": 3966,
+          "category": "sci.crypt",
+          "score": 0.6934,
+          "snippet": "brings up the issue of how the escrow agent will be paid, and the fact..."
+        },
+        {
+          "id": 4872,
+          "category": "sci.crypt",
+          "score": 0.6401,
+          "snippet": "It was implied in the first technical posting by Dorothy Denning that ..."
+        },
+        {
+          "id": 5256,
+          "category": "sci.crypt",
+          "score": 0.609,
+          "snippet": "Interestingly enough, in designing the escrow, we may want to use some..."
+        },
+        {
+          "id": 5971,
+          "category": "sci.crypt",
+          "score": 0.5597,
+          "snippet": "Actually the govrnment is telling you that if you want to use their \"p..."
+        }
+      ]
+    }
+  ],
+  "hnsw": [
+    {
+      "query_index": 0,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=16",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 16,
+      "ids": [
+        4746,
+        175,
+        2556,
+        1880,
+        4342
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.22
+    },
+    {
+      "query_index": 0,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=64",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 64,
+      "ids": [
+        4746,
+        175,
+        2556,
+        1880,
+        4342
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.29
+    },
+    {
+      "query_index": 0,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=128",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 128,
+      "ids": [
+        4746,
+        175,
+        2556,
+        1880,
+        4342
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.64
+    },
+    {
+      "query_index": 0,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=16",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 16,
+      "ids": [
+        4746,
+        175,
+        2556,
+        1880,
+        4342
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.649
+    },
+    {
+      "query_index": 0,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=64",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 64,
+      "ids": [
+        4746,
+        175,
+        2556,
+        1880,
+        4342
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.427
+    },
+    {
+      "query_index": 0,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=128",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 128,
+      "ids": [
+        4746,
+        175,
+        2556,
+        1880,
+        4342
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.161
+    },
+    {
+      "query_index": 1,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=16",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 16,
+      "ids": [
+        322,
+        1425,
+        1159,
+        4362,
+        2886
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.139
+    },
+    {
+      "query_index": 1,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=64",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 64,
+      "ids": [
+        322,
+        1425,
+        1159,
+        4362,
+        2886
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.417
+    },
+    {
+      "query_index": 1,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=128",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 128,
+      "ids": [
+        322,
+        1425,
+        1159,
+        4362,
+        2886
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.923
+    },
+    {
+      "query_index": 1,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=16",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 16,
+      "ids": [
+        322,
+        1425,
+        1159,
+        4289,
+        3399
+      ],
+      "overlap": 0.6,
+      "latency_ms": 2.579
+    },
+    {
+      "query_index": 1,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=64",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 64,
+      "ids": [
+        322,
+        1425,
+        1159,
+        2886,
+        4289
+      ],
+      "overlap": 0.8,
+      "latency_ms": 2.615
+    },
+    {
+      "query_index": 1,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=128",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 128,
+      "ids": [
+        322,
+        1425,
+        1159,
+        4362,
+        2886
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.513
+    },
+    {
+      "query_index": 2,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=16",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 16,
+      "ids": [
+        2079,
+        1898,
+        5623,
+        2137,
+        1177
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.466
+    },
+    {
+      "query_index": 2,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=64",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 64,
+      "ids": [
+        2079,
+        1898,
+        5623,
+        2137,
+        1177
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.378
+    },
+    {
+      "query_index": 2,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=128",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 128,
+      "ids": [
+        2079,
+        1898,
+        5623,
+        2137,
+        1177
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.506
+    },
+    {
+      "query_index": 2,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=16",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 16,
+      "ids": [
+        1898,
+        5623,
+        2137,
+        1177,
+        3497
+      ],
+      "overlap": 0.8,
+      "latency_ms": 2.272
+    },
+    {
+      "query_index": 2,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=64",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 64,
+      "ids": [
+        2079,
+        1898,
+        5623,
+        2137,
+        1177
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.432
+    },
+    {
+      "query_index": 2,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=128",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 128,
+      "ids": [
+        2079,
+        1898,
+        5623,
+        2137,
+        1177
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.464
+    },
+    {
+      "query_index": 3,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=16",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 16,
+      "ids": [
+        2969,
+        4996,
+        1888,
+        5387,
+        1901
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.519
+    },
+    {
+      "query_index": 3,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=64",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 64,
+      "ids": [
+        2969,
+        4996,
+        1888,
+        5387,
+        1901
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.558
+    },
+    {
+      "query_index": 3,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=128",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 128,
+      "ids": [
+        2969,
+        4996,
+        1888,
+        5387,
+        1901
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.68
+    },
+    {
+      "query_index": 3,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=16",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 16,
+      "ids": [
+        5168,
+        4628,
+        4228,
+        5408,
+        4372
+      ],
+      "overlap": 0.0,
+      "latency_ms": 2.358
+    },
+    {
+      "query_index": 3,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=64",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 64,
+      "ids": [
+        5168,
+        4628,
+        4228,
+        5408,
+        4372
+      ],
+      "overlap": 0.0,
+      "latency_ms": 2.279
+    },
+    {
+      "query_index": 3,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=128",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 128,
+      "ids": [
+        2969,
+        4996,
+        1888,
+        5387,
+        1901
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.467
+    },
+    {
+      "query_index": 4,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=16",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 16,
+      "ids": [
+        1409,
+        3966,
+        4872,
+        5256,
+        5971
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.308
+    },
+    {
+      "query_index": 4,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=64",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 64,
+      "ids": [
+        1409,
+        3966,
+        4872,
+        5256,
+        5971
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.188
+    },
+    {
+      "query_index": 4,
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=128",
+      "collection": "capstone_cosine",
+      "hnsw_ef": 128,
+      "ids": [
+        1409,
+        3966,
+        4872,
+        5256,
+        5971
+      ],
+      "overlap": 1.0,
+      "latency_ms": 2.436
+    },
+    {
+      "query_index": 4,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=16",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 16,
+      "ids": [
+        1409,
+        5256,
+        5971,
+        2952,
+        2951
+      ],
+      "overlap": 0.6,
+      "latency_ms": 2.085
+    },
+    {
+      "query_index": 4,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=64",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 64,
+      "ids": [
+        1409,
+        5256,
+        5971,
+        2952,
+        2951
+      ],
+      "overlap": 0.6,
+      "latency_ms": 2.373
+    },
+    {
+      "query_index": 4,
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=128",
+      "collection": "capstone_hnsw_weak",
+      "hnsw_ef": 128,
+      "ids": [
+        1409,
+        5256,
+        5971,
+        2952,
+        2951
+      ],
+      "overlap": 0.6,
+      "latency_ms": 2.448
+    }
+  ]
+}

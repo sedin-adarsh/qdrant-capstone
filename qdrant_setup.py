@@ -9,9 +9,11 @@ Collections created:
     capstone_cosine    Distance.COSINE, default HNSW (m=16, ef_construct=100)
     capstone_euclid    Distance.EUCLID, default HNSW
     capstone_dot       Distance.DOT,    default HNSW
+    capstone_hnsw_weak Distance.COSINE, weak HNSW    (m=4,  ef_construct=8)
 
-All of them get the SAME raw (unnormalized) vectors and the SAME payload,
-so the only thing that changes between them is the distance metric.
+All of them get the SAME raw (unnormalized) vectors and the SAME payload.
+The first three differ only in distance metric (Part 2).
+capstone_cosine and capstone_hnsw_weak differ only in HNSW settings (Part 3).
 """
 
 import json
@@ -37,6 +39,15 @@ DEFAULT_HNSW = HnswConfigDiff(
     m=16,                       # each node links to up to 16 neighbours per layer
     ef_construct=100,           # how many candidates are considered while building the graph
     full_scan_threshold=10,     # (KB) never fall back to a full scan because the data is "small"
+)
+
+# A deliberately WEAK graph for Part 3: few links per node and a tiny search
+# while building. It builds faster but the graph is worse, so searches are
+# more likely to miss true neighbours.
+WEAK_HNSW = HnswConfigDiff(
+    m=4,
+    ef_construct=8,
+    full_scan_threshold=10,
 )
 
 # Optimizer settings that FORCE Qdrant to build the HNSW graph.
@@ -149,9 +160,16 @@ def main():
         distance = METRIC_COLLECTIONS[name]
         create_collection(client, name, distance, vectors_raw, metadata, DEFAULT_HNSW)
 
+    # ---- Part 3: same vectors as capstone_cosine, but a weak HNSW graph --
+    create_collection(client, "capstone_hnsw_weak", Distance.COSINE,
+                      vectors_raw, metadata, WEAK_HNSW)
+
     # ---- Wait for every HNSW graph to be built --------------------------
+    # Without this, Qdrant may answer queries by brute force while the
+    # index is still being built, and the HNSW comparison would be meaningless.
     print("\nWaiting for Qdrant to build the HNSW indexes ...")
-    for name in METRIC_COLLECTIONS:
+    all_names = list(METRIC_COLLECTIONS) + ["capstone_hnsw_weak"]
+    for name in all_names:
         wait_until_indexed(client, name)
 
     print("\nAll collections ready. Open http://localhost:6333/dashboard to see them.")

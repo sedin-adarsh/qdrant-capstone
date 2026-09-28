@@ -69,3 +69,43 @@ This is expected:
 
 So the metrics only disagree when vector **length** carries information. With
 normalized embeddings the choice between them does not change results.
+
+## Part 3 – HNSW (default vs weak) against exact search
+
+* Ground truth: `capstone_cosine` searched with `SearchParams(exact=True)` (brute force).
+* **Default HNSW**: `capstone_cosine`, m=16, ef_construct=100.
+* **Weak HNSW**: `capstone_hnsw_weak`, same vectors, m=4, ef_construct=8.
+* The HNSW graphs were really built: `indexing_threshold` was lowered to 10 KB
+  and both collections showed `indexed=6000/6000`, status green, before searching.
+* Overlap = |HNSW top-5 ∩ exact top-5| / 5. Latency = mean of 10 timed calls
+  after 1 warm-up, measured in Python, so it includes the HTTP round-trip.
+
+Averages over the 5 queries (from `results/hnsw.json`):
+
+| Collection | hnsw_ef | avg overlap | avg latency ms |
+|------------|---------|-------------|----------------|
+| exact (brute force) | – | 1.00 | 4.185 |
+| default (m=16, ef_construct=100) | 16 | 1.00 | 2.330 |
+| default | 64 | 1.00 | 2.366 |
+| default | 128 | 1.00 | 2.637 |
+| weak (m=4, ef_construct=8) | 16 | 0.60 | 2.389 |
+| weak | 64 | 0.68 | 2.425 |
+| weak | 128 | 0.92 | 2.411 |
+
+Per-query overlap of the weak graph (ef = 16 / 64 / 128):
+q0 1.0/1.0/1.0, q1 0.6/0.8/1.0, q2 0.8/1.0/1.0, **q3 0.0/0.0/1.0**, q4 0.6/0.6/0.6.
+
+What this shows:
+
+* The default graph is good enough that even ef=16 finds the exact top-5 for every query.
+* The weak graph has few links per node (m=4) and was built carelessly
+  (ef_construct=8). The search can get stuck in the wrong part of the graph.
+  For query 3 ("hockey playoff predictions") at ef=16 and ef=64 it returned
+  5 completely wrong documents. Only ef=128 explored enough of the graph to
+  escape and find the true neighbours.
+* Raising `hnsw_ef` helps the weak graph a lot (0.60 → 0.92), but it cannot
+  fully fix it: query 4 stayed at 0.6 even at ef=128, because a missing link in
+  the graph cannot be repaired at query time.
+* Latency: at only 6000 points each search is a fraction of a millisecond of
+  real work. Most of the ~2 ms is the HTTP request, so the ef differences are
+  small. HNSW is still clearly faster than exact search (≈2.3 ms vs ≈4.2 ms).

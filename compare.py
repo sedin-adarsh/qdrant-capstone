@@ -10,14 +10,28 @@ Needs: Qdrant running (docker compose up -d), then embed.py and qdrant_setup.py 
 import argparse
 import json
 import os
+import time
 
 import numpy as np
 from qdrant_client import QdrantClient
+from qdrant_client.models import SearchParams
 
 QDRANT_URL = "http://localhost:6333"
 RESULTS_DIR = "results"
 TOP_K = 5              # we always compare the top-5 results
 SNIPPET_LENGTH = 70    # how many characters of text to show / save per hit
+LATENCY_RUNS = 10      # each timed search is repeated this many times and averaged
+
+# Part 3: the two HNSW collections and the query-time ef values we try.
+# hnsw_ef = how many candidates HNSW keeps while searching the graph.
+# Bigger ef = more of the graph explored = slower but more accurate.
+HNSW_EF_VALUES = [16, 64, 128]
+HNSW_COLLECTIONS = [
+    {"method": "HNSW default", "collection": "capstone_cosine",
+     "build": "m=16, ef_construct=100"},
+    {"method": "HNSW weak", "collection": "capstone_hnsw_weak",
+     "build": "m=4, ef_construct=8"},
+]
 
 # The three Part 2 collections. For each one we note whether a HIGHER score
 # means "more similar" (cosine, dot) or a LOWER score does (euclid).
@@ -100,6 +114,73 @@ def print_header(title):
     print("-" * 78)
 
 
+def timed(function):
+    """
+    Measure how long a search takes.
+    `function` is a search wrapped in a lambda, e.g.  timed(lambda: qdrant_search(...))
+    so we can call it several times.
+      1) call it once as a warm-up (not timed: first calls are often slower)
+      2) call it LATENCY_RUNS times, timing each call with time.perf_counter()
+    Returns (the search result, average time in milliseconds).
+    """
+    result = function()   # warm-up call
+
+    total_seconds = 0.0
+    for run in range(LATENCY_RUNS):
+        start = time.perf_counter()
+        result = function()
+        total_seconds += time.perf_counter() - start
+
+    average_ms = total_seconds / LATENCY_RUNS * 1000
+    return result, average_ms
+
+
+def summarize(rows):
+    """
+    Average overlap and latency over all queries, per (method, setting).
+    rows is a list like [{"method": "HNSW weak", "setting": "ef=16", "overlap": 0.8, ...}, ...]
+    Returns one dict per (method, setting), in the order they first appear.
+    """
+    groups = {}   # (method, setting) -> list of rows
+    for row in rows:
+        key = (row["method"], row["setting"])
+        if key not in groups:
+            groups[key] = []
+        groups[key].append(row)
+
+    summary = []
+    for key in groups:
+        group_rows = groups[key]
+        overlaps = []
+        latencies = []
+        for row in group_rows:
+            overlaps.append(row["overlap"])
+            latencies.append(row["latency_ms"])
+        entry = {
+            "method": key[0],
+            "setting": key[1],
+            "avg_overlap": round(float(np.mean(overlaps)), 3),
+            "avg_latency_ms": round(float(np.mean(latencies)), 3),
+            "queries": len(group_rows),
+        }
+        # IVF rows also say how many vectors were compared.
+        if "scanned" in group_rows[0]:
+            scanned = []
+            for row in group_rows:
+                scanned.append(row["scanned"])
+            entry["avg_scanned"] = round(float(np.mean(scanned)), 1)
+        summary.append(entry)
+    return summary
+
+
+def print_summary_table(summary):
+    """Print the averaged results as a table."""
+    print(f"   {'method':<16} {'setting':<30} {'avg overlap':>11} {'avg latency ms':>15}")
+    for entry in summary:
+        print(f"   {entry['method']:<16} {entry['setting']:<30} "
+              f"{entry['avg_overlap']:>11.2f} {entry['avg_latency_ms']:>15.3f}")
+
+
 # ---------------------------------------------------------------------------
 # Part 2: distance metrics
 # ---------------------------------------------------------------------------
@@ -169,6 +250,79 @@ def normalized_metrics_agree(doc_vectors_normalized, query_vector_normalized):
 
 
 # ---------------------------------------------------------------------------
+# Part 3: exact search (ground truth) and HNSW
+# ---------------------------------------------------------------------------
+
+def print_index_status(client):
+    """Prove that the HNSW graphs really exist (otherwise Qdrant brute-forces)."""
+    print("\nHNSW index check (indexed_vectors_count must equal points_count):")
+    for config in HNSW_COLLECTIONS:
+        info = client.get_collection(config["collection"])
+        print(f"   {config['collection']:<20} {config['build']:<24} status={info.status.value:<6} "
+              f"indexed={info.indexed_vectors_count}/{info.points_count}")
+
+
+def run_exact(client, query_vector_raw, qi):
+    """
+    Ground truth: exact=True makes Qdrant skip HNSW and compare the query with
+    EVERY vector (brute force). Slow, but guaranteed to find the true top-5.
+    capstone_cosine uses COSINE, so Qdrant normalizes the raw vectors itself.
+    """
+    print_header("PART 3 | Exact search = ground truth (capstone_cosine, exact=True)")
+
+    exact_params = SearchParams(exact=True)
+    hits, latency_ms = timed(
+        lambda: qdrant_search(client, "capstone_cosine", query_vector_raw, exact_params)
+    )
+    print_hits(hits)
+    print(f"   latency: {latency_ms:.3f} ms (average of {LATENCY_RUNS} runs)")
+
+    row = {
+        "query_index": qi,
+        "method": "Exact (Qdrant)",
+        "setting": "exact=True",
+        "ids": get_ids(hits),
+        "overlap": 1.0,        # exact search agrees with itself by definition
+        "latency_ms": round(latency_ms, 3),
+        "hits": hits,
+    }
+    return row
+
+
+def run_hnsw(client, query_vector_raw, qi, exact_ids):
+    """Run every HNSW collection at every hnsw_ef and compare with exact search."""
+    print_header("PART 3 | HNSW approximate search vs exact (overlap = shared ids / 5)")
+    print(f"   exact ids: {exact_ids}")
+
+    rows = []
+    for config in HNSW_COLLECTIONS:
+        print(f"\n   {config['method']} ({config['collection']}, {config['build']})")
+
+        for ef in HNSW_EF_VALUES:
+            # exact=False (the default) means: use the HNSW graph.
+            params = SearchParams(hnsw_ef=ef, exact=False)
+            hits, latency_ms = timed(
+                lambda: qdrant_search(client, config["collection"], query_vector_raw, params)
+            )
+            ids = get_ids(hits)
+            score = overlap(ids, exact_ids)
+
+            print(f"      hnsw_ef={ef:<4} overlap={score:.1f}  latency={latency_ms:6.3f} ms  ids={ids}")
+
+            rows.append({
+                "query_index": qi,
+                "method": config["method"],
+                "setting": f"{config['build']}, ef={ef}",
+                "collection": config["collection"],
+                "hnsw_ef": ef,
+                "ids": ids,
+                "overlap": score,
+                "latency_ms": round(latency_ms, 3),
+            })
+    return rows
+
+
+# ---------------------------------------------------------------------------
 # Main program
 # ---------------------------------------------------------------------------
 
@@ -196,9 +350,12 @@ def main():
         query_indexes = [args.query]
 
     client = QdrantClient(url=QDRANT_URL)
+    print_index_status(client)
 
-    # One entry per query, filled in below and saved as JSON at the end.
+    # Filled in below, one entry per query, and saved as JSON at the end.
     distance_results = []
+    exact_rows = []
+    hnsw_rows = []
 
     for qi in query_indexes:
         print("\n" + "=" * 78)
@@ -220,6 +377,21 @@ def main():
             "normalized_vectors_all_metrics_agree": agree,
         })
 
+        # ---- Part 3 ------------------------------------------------------
+        exact_row = run_exact(client, query_vectors_raw[qi], qi)
+        exact_rows.append(exact_row)
+        exact_ids = exact_row["ids"]
+
+        new_hnsw_rows = run_hnsw(client, query_vectors_raw[qi], qi, exact_ids)
+        hnsw_rows.extend(new_hnsw_rows)
+
+    # ---- Averages over the queries that were run ------------------------
+    print("\n" + "=" * 78)
+    print(f"AVERAGES over {len(query_indexes)} query/queries")
+    print("=" * 78)
+    hnsw_summary = summarize(exact_rows + hnsw_rows)
+    print_summary_table(hnsw_summary)
+
     # ---- Save results (only for a full run, so a demo of one query -------
     # ---- does not overwrite the full results) ---------------------------
     if args.query is None:
@@ -227,6 +399,16 @@ def main():
         with open(os.path.join(RESULTS_DIR, "distance_metrics.json"), "w", encoding="utf-8") as f:
             json.dump(distance_results, f, indent=2)
         print(f"\nSaved {RESULTS_DIR}/distance_metrics.json")
+
+        hnsw_output = {
+            "latency_runs_per_search": LATENCY_RUNS,
+            "summary": hnsw_summary,
+            "exact": exact_rows,
+            "hnsw": hnsw_rows,
+        }
+        with open(os.path.join(RESULTS_DIR, "hnsw.json"), "w", encoding="utf-8") as f:
+            json.dump(hnsw_output, f, indent=2)
+        print(f"Saved {RESULTS_DIR}/hnsw.json")
 
 
 if __name__ == "__main__":
