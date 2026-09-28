@@ -1,0 +1,9 @@
+# Python virtual environment and bytecode caches
+.venv/
+__pycache__/
+
+# Qdrant's on-disk data (created by docker compose)
+qdrant_storage/
+
+# Generated embeddings (recreated by running embed.py)
+data/

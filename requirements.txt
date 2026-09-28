@@ -1,0 +1,4 @@
+qdrant-client>=1.10
+sentence-transformers
+scikit-learn
+numpy

@@ -1,0 +1,15 @@
+# docker-compose.yml
+# Runs a single local Qdrant server. Start it with:  docker compose up -d
+services:
+  qdrant:
+    image: qdrant/qdrant            # official Qdrant image from Docker Hub
+    container_name: qdrant-capstone
+    ports:
+      - "6333:6333"                 # REST API + web dashboard (http://localhost:6333/dashboard)
+      - "6334:6334"                 # gRPC API (not used by our scripts, but exposed as asked)
+    volumes:
+      # Qdrant stores its data in /qdrant/storage inside the container.
+      # We map it to ./qdrant_storage on our machine so data survives restarts.
+      # ":z" is a SELinux label flag; it is harmless on systems without SELinux.
+      - ./qdrant_storage:/qdrant/storage:z
+    restart: unless-stopped
