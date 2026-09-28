@@ -7,14 +7,26 @@ compare.py - Run every search method and compare them.
 Needs: Qdrant running (docker compose up -d), then embed.py and qdrant_setup.py run once.
 """
 
+import os
+
+# Run numpy's maths on ONE CPU thread. This must be set BEFORE numpy is imported.
+# Why: one query is a tiny calculation. With many threads, numpy spends more
+# time starting and syncing threads than calculating, the timings jump around
+# (we saw 0.1 ms and 13 ms for similar work), and the busy threads also steal
+# CPU from the Qdrant server we are timing. One thread gives stable, fair numbers.
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+
 import argparse
 import json
-import os
 import time
 
 import numpy as np
 from qdrant_client import QdrantClient
 from qdrant_client.models import SearchParams
+
+from ivf import build_ivf_index, search_ivf
 
 QDRANT_URL = "http://localhost:6333"
 RESULTS_DIR = "results"
@@ -32,6 +44,10 @@ HNSW_COLLECTIONS = [
     {"method": "HNSW weak", "collection": "capstone_hnsw_weak",
      "build": "m=4, ef_construct=8"},
 ]
+
+# Part 4: our own IVF index. nprobe = how many clusters we search.
+IVF_CLUSTERS = 40
+IVF_NPROBE_VALUES = [1, 4, 8, 16]
 
 # The three Part 2 collections. For each one we note whether a HIGHER score
 # means "more similar" (cosine, dot) or a LOWER score does (euclid).
@@ -323,6 +339,121 @@ def run_hnsw(client, query_vector_raw, qi, exact_ids):
 
 
 # ---------------------------------------------------------------------------
+# Part 4: custom IVF index
+# ---------------------------------------------------------------------------
+
+def numpy_exact_search(doc_vectors_normalized, query_vector_normalized):
+    """Brute force in numpy: cosine with ALL 6000 vectors, keep the best TOP_K."""
+    scores = doc_vectors_normalized @ query_vector_normalized
+    best = np.argsort(scores)[::-1][:TOP_K]
+    ids = []
+    for position in best:
+        ids.append(int(position))
+    return ids
+
+
+def find_cluster(ivf_index, doc_id):
+    """Return the id of the IVF cluster that contains doc_id."""
+    for cluster_id in ivf_index["lists"]:
+        if doc_id in ivf_index["lists"][cluster_id]:
+            return cluster_id
+    return None
+
+
+def centroid_rank(ivf_index, query_vector_normalized, cluster_id):
+    """
+    How close is this cluster's centroid to the query, as a rank?
+    1 = the closest centroid, 2 = second closest, and so on.
+    """
+    centroid_scores = ivf_index["centroids"] @ query_vector_normalized
+    order = np.argsort(centroid_scores)[::-1]      # best centroid first
+    for position in range(len(order)):
+        if order[position] == cluster_id:
+            return position + 1
+    return None
+
+
+def run_ivf(ivf_index, doc_vectors_normalized, query_vector_normalized, qi, exact_ids):
+    """
+    Search our IVF index at every nprobe and compare with Qdrant's exact search.
+    IVF runs inside Python (no network), so we also time a numpy brute-force
+    search as a fair "exact" baseline for the IVF latency.
+    """
+    print_header(f"PART 4 | Custom IVF ({IVF_CLUSTERS} k-means clusters) vs exact")
+    print(f"   exact ids (Qdrant): {exact_ids}")
+
+    rows = []
+
+    # ---- In-process exact baseline --------------------------------------
+    numpy_ids, numpy_ms = timed(
+        lambda: numpy_exact_search(doc_vectors_normalized, query_vector_normalized)
+    )
+    same = numpy_ids == exact_ids
+    print(f"   numpy brute force   scanned={len(doc_vectors_normalized):<5} "
+          f"overlap={overlap(numpy_ids, exact_ids):.1f}  latency={numpy_ms:6.3f} ms  "
+          f"(same as Qdrant exact: {'yes' if same else 'NO'})")
+    rows.append({
+        "query_index": qi,
+        "method": "Exact (numpy)",
+        "setting": "scan all 6000",
+        "ids": numpy_ids,
+        "overlap": overlap(numpy_ids, exact_ids),
+        "latency_ms": round(numpy_ms, 3),
+        "scanned": len(doc_vectors_normalized),
+    })
+
+    # ---- IVF at each nprobe ---------------------------------------------
+    for nprobe in IVF_NPROBE_VALUES:
+        result, latency_ms = timed(
+            lambda: search_ivf(ivf_index, doc_vectors_normalized, query_vector_normalized,
+                               nprobe=nprobe, k=TOP_K)
+        )
+        score = overlap(result["ids"], exact_ids)
+
+        # Which exact results did IVF miss? And WHY: which cluster is each
+        # missed document in, and how close was that cluster's centroid?
+        missed = []
+        missed_details = []
+        for doc_id in exact_ids:
+            if doc_id not in result["ids"]:
+                missed.append(doc_id)
+                cluster_id = find_cluster(ivf_index, doc_id)
+                rank = centroid_rank(ivf_index, query_vector_normalized, cluster_id)
+                missed_details.append({"id": doc_id, "cluster": cluster_id,
+                                       "cluster_rank": rank})
+
+        line = (f"   IVF nprobe={nprobe:<3}      scanned={result['scanned']:<5} "
+                f"overlap={score:.1f}  latency={latency_ms:6.3f} ms  ids={result['ids']}")
+        if len(missed) > 0:
+            line += f"  missed={missed}"
+        print(line)
+        for detail in missed_details:
+            print(f"      -> missed id {detail['id']} lives in cluster {detail['cluster']}, "
+                  f"the #{detail['cluster_rank']} closest cluster, but only "
+                  f"{nprobe} cluster(s) were searched")
+
+        rounded_scores = []
+        for s in result["scores"]:
+            rounded_scores.append(round(s, 4))
+
+        rows.append({
+            "query_index": qi,
+            "method": "IVF",
+            "setting": f"nprobe={nprobe}",
+            "nprobe": nprobe,
+            "ids": result["ids"],
+            "scores": rounded_scores,
+            "clusters_searched": result["clusters"],
+            "missed_exact_ids": missed,
+            "missed_details": missed_details,
+            "overlap": score,
+            "latency_ms": round(latency_ms, 3),
+            "scanned": result["scanned"],
+        })
+    return rows
+
+
+# ---------------------------------------------------------------------------
 # Main program
 # ---------------------------------------------------------------------------
 
@@ -352,10 +483,18 @@ def main():
     client = QdrantClient(url=QDRANT_URL)
     print_index_status(client)
 
+    # Build the IVF index once (k-means on all 6000 normalized vectors).
+    print(f"\nBuilding IVF index ({IVF_CLUSTERS} clusters, k-means seed=42) ...")
+    build_start = time.perf_counter()
+    ivf_index = build_ivf_index(doc_vectors_normalized, n_clusters=IVF_CLUSTERS, seed=42)
+    ivf_build_seconds = time.perf_counter() - build_start
+    print(f"   built in {ivf_build_seconds:.2f} s")
+
     # Filled in below, one entry per query, and saved as JSON at the end.
     distance_results = []
     exact_rows = []
     hnsw_rows = []
+    ivf_rows = []
 
     for qi in query_indexes:
         print("\n" + "=" * 78)
@@ -385,12 +524,18 @@ def main():
         new_hnsw_rows = run_hnsw(client, query_vectors_raw[qi], qi, exact_ids)
         hnsw_rows.extend(new_hnsw_rows)
 
+        # ---- Part 4 ------------------------------------------------------
+        new_ivf_rows = run_ivf(ivf_index, doc_vectors_normalized,
+                               query_vectors_normalized[qi], qi, exact_ids)
+        ivf_rows.extend(new_ivf_rows)
+
     # ---- Averages over the queries that were run ------------------------
     print("\n" + "=" * 78)
     print(f"AVERAGES over {len(query_indexes)} query/queries")
     print("=" * 78)
     hnsw_summary = summarize(exact_rows + hnsw_rows)
-    print_summary_table(hnsw_summary)
+    ivf_summary = summarize(ivf_rows)
+    print_summary_table(hnsw_summary + ivf_summary)
 
     # ---- Save results (only for a full run, so a demo of one query -------
     # ---- does not overwrite the full results) ---------------------------
@@ -409,6 +554,23 @@ def main():
         with open(os.path.join(RESULTS_DIR, "hnsw.json"), "w", encoding="utf-8") as f:
             json.dump(hnsw_output, f, indent=2)
         print(f"Saved {RESULTS_DIR}/hnsw.json")
+
+        # Cluster sizes, to show how the 6000 vectors were split.
+        cluster_sizes = {}
+        for cluster_id in ivf_index["lists"]:
+            cluster_sizes[cluster_id] = len(ivf_index["lists"][cluster_id])
+
+        ivf_output = {
+            "n_clusters": IVF_CLUSTERS,
+            "build_seconds": round(ivf_build_seconds, 2),
+            "cluster_sizes": cluster_sizes,
+            "latency_runs_per_search": LATENCY_RUNS,
+            "summary": ivf_summary,
+            "results": ivf_rows,
+        }
+        with open(os.path.join(RESULTS_DIR, "ivf.json"), "w", encoding="utf-8") as f:
+            json.dump(ivf_output, f, indent=2)
+        print(f"Saved {RESULTS_DIR}/ivf.json")
 
 
 if __name__ == "__main__":

@@ -109,3 +109,32 @@ What this shows:
 * Latency: at only 6000 points each search is a fraction of a millisecond of
   real work. Most of the ~2 ms is the HTTP request, so the ef differences are
   small. HNSW is still clearly faster than exact search (≈2.3 ms vs ≈4.2 ms).
+
+## Part 4 – Custom IVF index (`ivf.py`)
+
+* k-means with 40 clusters (seed 42) on the 6000 **normalized** vectors, so
+  cosine similarity = dot product. Built in 2.33 s. Cluster sizes: 64 to 248.
+* Search: score the query against the 40 centroids, take the `nprobe` best
+  clusters, compute exact cosine only against the vectors inside them.
+* Overlap is measured against **Qdrant's exact search** (the same ground truth
+  as Part 3). A numpy brute-force scan of all 6000 vectors returned exactly the
+  same top-5 as Qdrant for every query, so both use the same metric.
+* IVF runs inside Python (no network), so its latency is compared with the
+  numpy brute force, **not** with the Qdrant numbers that include HTTP.
+
+Averages over the 5 queries (from `results/ivf.json`):
+
+| Method | Setting | Vectors scanned | avg overlap | avg latency ms |
+|--------|---------|-----------------|-------------|----------------|
+| numpy brute force | all | 6000 | 1.00 | 0.398 |
+| IVF | nprobe=1 | 151 | 0.96 | 0.019 |
+| IVF | nprobe=4 | 619 | 1.00 | 0.092 |
+| IVF | nprobe=8 | 1158.6 | 1.00 | 0.163 |
+| IVF | nprobe=16 | 2287.8 | 1.00 | 0.393 |
+
+The one miss: **query 2** ("space shuttle launch and NASA missions") at
+nprobe=1 returned `[1898, 5623, 2137, 1177, 3497]`. It lost the true #1,
+id 2079, which lives in cluster 27. That is the **2nd** closest cluster
+to the query, so nprobe=1 never looked at it. With nprobe=4 the cluster is
+searched and the result matches exact search. The work (vectors scanned, and
+with it the latency) grows roughly in line with nprobe.
