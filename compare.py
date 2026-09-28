@@ -208,12 +208,18 @@ def run_distance_metrics(client, query_vector_raw, doc_lengths):
     doc_lengths[i] is the length of raw document vector i. We add it to every
     hit ("len=") because length is exactly what makes the metrics disagree.
     """
-    print_header("PART 2 | Distance metrics (same raw vectors, top-5 each)")
+    print_header("PART 2 | Distance metrics (same raw vectors, exact search, top-5 each)")
     print(f"   query vector length = {np.linalg.norm(query_vector_raw):.3f}")
+
+    # exact=True: brute force, no HNSW. This way the ONLY thing that changes
+    # between the three searches is the metric. (With normal HNSW search, a
+    # small approximation error in one graph could also change the results,
+    # and we could not tell which effect we were looking at.)
+    exact_params = SearchParams(exact=True)
 
     results = {}
     for metric in METRICS:
-        hits = qdrant_search(client, metric["collection"], query_vector_raw)
+        hits = qdrant_search(client, metric["collection"], query_vector_raw, exact_params)
         for hit in hits:
             hit["vector_length"] = round(float(doc_lengths[hit["id"]]), 3)
         results[metric["name"]] = hits
@@ -478,7 +484,16 @@ def main():
     if args.query is None:
         query_indexes = list(range(len(queries)))
     else:
+        if args.query < 0 or args.query >= len(queries):
+            print(f"--query must be between 0 and {len(queries) - 1}")
+            return
         query_indexes = [args.query]
+
+    print("=" * 78)
+    print("COMPARE SEARCH ALGORITHMS IN QDRANT")
+    print(f"{len(doc_vectors_normalized)} documents, top-{TOP_K}, "
+          f"latency = average of {LATENCY_RUNS} runs after 1 warm-up")
+    print("=" * 78)
 
     client = QdrantClient(url=QDRANT_URL)
     print_index_status(client)
@@ -529,13 +544,42 @@ def main():
                                query_vectors_normalized[qi], qi, exact_ids)
         ivf_rows.extend(new_ivf_rows)
 
-    # ---- Averages over the queries that were run ------------------------
+    # ---- Part 5: summary over the queries that were run -----------------
     print("\n" + "=" * 78)
-    print(f"AVERAGES over {len(query_indexes)} query/queries")
+    print(f"PART 5 | SUMMARY over {len(query_indexes)} query/queries")
     print("=" * 78)
+
+    # Part 2 recap: how much did euclid and dot agree with cosine?
+    metric_recap = []
+    print("\n   Distance metrics (raw vectors): top-5 overlap with cosine, and same #1?")
+    for entry in distance_results:
+        cosine_ids = get_ids(entry["cosine"])
+        euclid_ids = get_ids(entry["euclid"])
+        dot_ids = get_ids(entry["dot"])
+        recap = {
+            "query_index": entry["query_index"],
+            "euclid_vs_cosine_overlap": overlap(euclid_ids, cosine_ids),
+            "euclid_same_top1": euclid_ids[0] == cosine_ids[0],
+            "dot_vs_cosine_overlap": overlap(dot_ids, cosine_ids),
+            "dot_same_top1": dot_ids[0] == cosine_ids[0],
+            "normalized_vectors_all_metrics_agree": entry["normalized_vectors_all_metrics_agree"],
+        }
+        metric_recap.append(recap)
+        print(f"   query {recap['query_index']}:  "
+              f"euclid {recap['euclid_vs_cosine_overlap']:.1f} "
+              f"(same #1: {'yes' if recap['euclid_same_top1'] else 'no '})   "
+              f"dot {recap['dot_vs_cosine_overlap']:.1f} "
+              f"(same #1: {'yes' if recap['dot_same_top1'] else 'no '})   "
+              f"normalized all agree: {'yes' if recap['normalized_vectors_all_metrics_agree'] else 'NO'}")
+
+    # Combined table: every method vs exact search.
     hnsw_summary = summarize(exact_rows + hnsw_rows)
     ivf_summary = summarize(ivf_rows)
-    print_summary_table(hnsw_summary + ivf_summary)
+    combined = hnsw_summary + ivf_summary
+    print("\n   Every method vs exact search (overlap 1.00 = same top-5 as exact):")
+    print_summary_table(combined)
+    print("\n   Note: Qdrant rows include the HTTP round-trip to the Docker container.")
+    print("   IVF and 'Exact (numpy)' run inside Python, so compare IVF with 'Exact (numpy)'.")
 
     # ---- Save results (only for a full run, so a demo of one query -------
     # ---- does not overwrite the full results) ---------------------------
@@ -571,6 +615,25 @@ def main():
         with open(os.path.join(RESULTS_DIR, "ivf.json"), "w", encoding="utf-8") as f:
             json.dump(ivf_output, f, indent=2)
         print(f"Saved {RESULTS_DIR}/ivf.json")
+
+        summary_output = {
+            "queries": queries,
+            "documents": len(doc_vectors_normalized),
+            "top_k": TOP_K,
+            "latency_runs_per_search": LATENCY_RUNS,
+            "combined_table": combined,
+            "distance_metrics_vs_cosine": metric_recap,
+            "notes": [
+                "avg_overlap = |method top-5 intersect exact top-5| / 5, averaged over the queries",
+                "Qdrant latencies include the HTTP round-trip; IVF and Exact (numpy) run in-process",
+                "EUCLID scores are distances (lower = closer); COSINE and DOT are similarities",
+            ],
+        }
+        with open(os.path.join(RESULTS_DIR, "summary.json"), "w", encoding="utf-8") as f:
+            json.dump(summary_output, f, indent=2)
+        print(f"Saved {RESULTS_DIR}/summary.json")
+    else:
+        print("\n(Single-query demo run: results/ files were NOT overwritten.)")
 
 
 if __name__ == "__main__":

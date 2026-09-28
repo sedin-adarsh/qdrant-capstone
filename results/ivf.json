@@ -1,6 +1,6 @@
 {
   "n_clusters": 40,
-  "build_seconds": 2.33,
+  "build_seconds": 2.74,
   "cluster_sizes": {
     "0": 207,
     "1": 126,
@@ -49,7 +49,7 @@
       "method": "Exact (numpy)",
       "setting": "scan all 6000",
       "avg_overlap": 1.0,
-      "avg_latency_ms": 0.398,
+      "avg_latency_ms": 0.495,
       "queries": 5,
       "avg_scanned": 6000.0
     },
@@ -57,7 +57,7 @@
       "method": "IVF",
       "setting": "nprobe=1",
       "avg_overlap": 0.96,
-      "avg_latency_ms": 0.019,
+      "avg_latency_ms": 0.024,
       "queries": 5,
       "avg_scanned": 151.0
     },
@@ -65,7 +65,7 @@
       "method": "IVF",
       "setting": "nprobe=4",
       "avg_overlap": 1.0,
-      "avg_latency_ms": 0.092,
+      "avg_latency_ms": 0.129,
       "queries": 5,
       "avg_scanned": 619.0
     },
@@ -73,7 +73,7 @@
       "method": "IVF",
       "setting": "nprobe=8",
       "avg_overlap": 1.0,
-      "avg_latency_ms": 0.163,
+      "avg_latency_ms": 0.219,
       "queries": 5,
       "avg_scanned": 1158.6
     },
@@ -81,7 +81,7 @@
       "method": "IVF",
       "setting": "nprobe=16",
       "avg_overlap": 1.0,
-      "avg_latency_ms": 0.393,
+      "avg_latency_ms": 0.345,
       "queries": 5,
       "avg_scanned": 2287.8
     }
@@ -99,7 +99,7 @@
         4342
       ],
       "overlap": 1.0,
-      "latency_ms": 0.363,
+      "latency_ms": 0.528,
       "scanned": 6000
     },
     {
@@ -127,7 +127,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.021,
+      "latency_ms": 0.022,
       "scanned": 147
     },
     {
@@ -158,7 +158,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.081,
+      "latency_ms": 0.26,
       "scanned": 544
     },
     {
@@ -193,7 +193,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.156,
+      "latency_ms": 0.213,
       "scanned": 1164
     },
     {
@@ -236,7 +236,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.424,
+      "latency_ms": 0.348,
       "scanned": 2286
     },
     {
@@ -251,7 +251,7 @@
         2886
       ],
       "overlap": 1.0,
-      "latency_ms": 0.413,
+      "latency_ms": 0.608,
       "scanned": 6000
     },
     {
@@ -279,7 +279,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.017,
+      "latency_ms": 0.034,
       "scanned": 126
     },
     {
@@ -310,7 +310,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.106,
+      "latency_ms": 0.105,
       "scanned": 599
     },
     {
@@ -345,7 +345,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.145,
+      "latency_ms": 0.137,
       "scanned": 1026
     },
     {
@@ -388,7 +388,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.364,
+      "latency_ms": 0.336,
       "scanned": 2200
     },
     {
@@ -403,7 +403,7 @@
         1177
       ],
       "overlap": 1.0,
-      "latency_ms": 0.413,
+      "latency_ms": 0.42,
       "scanned": 6000
     },
     {
@@ -470,7 +470,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.128,
+      "latency_ms": 0.107,
       "scanned": 763
     },
     {
@@ -505,7 +505,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.188,
+      "latency_ms": 0.167,
       "scanned": 1297
     },
     {
@@ -548,7 +548,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.382,
+      "latency_ms": 0.286,
       "scanned": 2198
     },
     {
@@ -563,7 +563,7 @@
         1901
       ],
       "overlap": 1.0,
-      "latency_ms": 0.431,
+      "latency_ms": 0.402,
       "scanned": 6000
     },
     {
@@ -591,7 +591,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.021,
+      "latency_ms": 0.03,
       "scanned": 207
     },
     {
@@ -622,7 +622,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.084,
+      "latency_ms": 0.113,
       "scanned": 667
     },
     {
@@ -657,7 +657,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.179,
+      "latency_ms": 0.403,
       "scanned": 1219
     },
     {
@@ -700,7 +700,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.391,
+      "latency_ms": 0.437,
       "scanned": 2496
     },
     {
@@ -715,7 +715,7 @@
         5971
       ],
       "overlap": 1.0,
-      "latency_ms": 0.369,
+      "latency_ms": 0.517,
       "scanned": 6000
     },
     {
@@ -774,7 +774,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.063,
+      "latency_ms": 0.059,
       "scanned": 522
     },
     {
@@ -809,7 +809,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.147,
+      "latency_ms": 0.177,
       "scanned": 1087
     },
     {
@@ -852,7 +852,7 @@
       "missed_exact_ids": [],
       "missed_details": [],
       "overlap": 1.0,
-      "latency_ms": 0.403,
+      "latency_ms": 0.316,
       "scanned": 2259
     }
   ]

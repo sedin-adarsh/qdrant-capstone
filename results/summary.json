@@ -1,0 +1,150 @@
+{
+  "queries": [
+    "a question about a graphics card driver",
+    "debate about gun control laws",
+    "space shuttle launch and NASA missions",
+    "hockey playoff predictions",
+    "encryption and government key escrow"
+  ],
+  "documents": 6000,
+  "top_k": 5,
+  "latency_runs_per_search": 10,
+  "combined_table": [
+    {
+      "method": "Exact (Qdrant)",
+      "setting": "exact=True",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 3.244,
+      "queries": 5
+    },
+    {
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=16",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 2.731,
+      "queries": 5
+    },
+    {
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=64",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 2.798,
+      "queries": 5
+    },
+    {
+      "method": "HNSW default",
+      "setting": "m=16, ef_construct=100, ef=128",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 2.746,
+      "queries": 5
+    },
+    {
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=16",
+      "avg_overlap": 0.6,
+      "avg_latency_ms": 2.308,
+      "queries": 5
+    },
+    {
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=64",
+      "avg_overlap": 0.68,
+      "avg_latency_ms": 2.567,
+      "queries": 5
+    },
+    {
+      "method": "HNSW weak",
+      "setting": "m=4, ef_construct=8, ef=128",
+      "avg_overlap": 0.92,
+      "avg_latency_ms": 2.631,
+      "queries": 5
+    },
+    {
+      "method": "Exact (numpy)",
+      "setting": "scan all 6000",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 0.495,
+      "queries": 5,
+      "avg_scanned": 6000.0
+    },
+    {
+      "method": "IVF",
+      "setting": "nprobe=1",
+      "avg_overlap": 0.96,
+      "avg_latency_ms": 0.024,
+      "queries": 5,
+      "avg_scanned": 151.0
+    },
+    {
+      "method": "IVF",
+      "setting": "nprobe=4",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 0.129,
+      "queries": 5,
+      "avg_scanned": 619.0
+    },
+    {
+      "method": "IVF",
+      "setting": "nprobe=8",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 0.219,
+      "queries": 5,
+      "avg_scanned": 1158.6
+    },
+    {
+      "method": "IVF",
+      "setting": "nprobe=16",
+      "avg_overlap": 1.0,
+      "avg_latency_ms": 0.345,
+      "queries": 5,
+      "avg_scanned": 2287.8
+    }
+  ],
+  "distance_metrics_vs_cosine": [
+    {
+      "query_index": 0,
+      "euclid_vs_cosine_overlap": 1.0,
+      "euclid_same_top1": true,
+      "dot_vs_cosine_overlap": 0.0,
+      "dot_same_top1": false,
+      "normalized_vectors_all_metrics_agree": true
+    },
+    {
+      "query_index": 1,
+      "euclid_vs_cosine_overlap": 0.6,
+      "euclid_same_top1": false,
+      "dot_vs_cosine_overlap": 0.2,
+      "dot_same_top1": false,
+      "normalized_vectors_all_metrics_agree": true
+    },
+    {
+      "query_index": 2,
+      "euclid_vs_cosine_overlap": 0.8,
+      "euclid_same_top1": true,
+      "dot_vs_cosine_overlap": 0.0,
+      "dot_same_top1": false,
+      "normalized_vectors_all_metrics_agree": true
+    },
+    {
+      "query_index": 3,
+      "euclid_vs_cosine_overlap": 0.6,
+      "euclid_same_top1": false,
+      "dot_vs_cosine_overlap": 0.0,
+      "dot_same_top1": false,
+      "normalized_vectors_all_metrics_agree": true
+    },
+    {
+      "query_index": 4,
+      "euclid_vs_cosine_overlap": 1.0,
+      "euclid_same_top1": true,
+      "dot_vs_cosine_overlap": 0.4,
+      "dot_same_top1": false,
+      "normalized_vectors_all_metrics_agree": true
+    }
+  ],
+  "notes": [
+    "avg_overlap = |method top-5 intersect exact top-5| / 5, averaged over the queries",
+    "Qdrant latencies include the HTTP round-trip; IVF and Exact (numpy) run in-process",
+    "EUCLID scores are distances (lower = closer); COSINE and DOT are similarities"
+  ]
+}

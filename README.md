@@ -68,4 +68,14 @@ python compare.py            # all 5 queries, writes results/*.json
 python compare.py --query 0  # one query only (for the demo; does not overwrite results/)
 ```
 
-Findings are written up in [comparison.md](comparison.md).
+Output files:
+
+| File | Contents |
+|------|----------|
+| `results/distance_metrics.json` | Part 2: top-5 per query for cosine / euclid / dot (id, category, score, snippet, vector length) |
+| `results/hnsw.json` | Part 3: exact search + default/weak HNSW at hnsw_ef 16/64/128 (ids, overlap, latency) |
+| `results/ivf.json` | Part 4: IVF at nprobe 1/4/8/16 (ids, scores, overlap, latency, vectors scanned) |
+| `results/summary.json` | Part 5: the combined averaged table |
+
+Findings are written up in [comparison.md](comparison.md). A study guide and
+the live-demo script are in [EXPLAIN.md](EXPLAIN.md).

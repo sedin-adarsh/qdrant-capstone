@@ -41,6 +41,13 @@
     ],
     "euclid": [
       {
+        "id": 4746,
+        "category": "misc.forsale",
+        "score": 6.2031,
+        "snippet": "I have the following Nth Engine graphics cards for sale w/drivers for ...",
+        "vector_length": 2.623
+      },
+      {
         "id": 2556,
         "category": "comp.os.ms-windows.misc",
         "score": 6.2442,
@@ -67,13 +74,6 @@
         "score": 6.3948,
         "snippet": "Hi. I am having some interesting problems with my Boca graphics card, ...",
         "vector_length": 2.094
-      },
-      {
-        "id": 399,
-        "category": "comp.graphics",
-        "score": 6.4361,
-        "snippet": "FOR IMMEDIATE RELEASE Editorial Contact: Single Source Marketing: Myra...",
-        "vector_length": 2.154
       }
     ],
     "dot": [

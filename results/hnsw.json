@@ -5,49 +5,49 @@
       "method": "Exact (Qdrant)",
       "setting": "exact=True",
       "avg_overlap": 1.0,
-      "avg_latency_ms": 3.206,
+      "avg_latency_ms": 3.244,
       "queries": 5
     },
     {
       "method": "HNSW default",
       "setting": "m=16, ef_construct=100, ef=16",
       "avg_overlap": 1.0,
-      "avg_latency_ms": 2.264,
+      "avg_latency_ms": 2.731,
       "queries": 5
     },
     {
       "method": "HNSW default",
       "setting": "m=16, ef_construct=100, ef=64",
       "avg_overlap": 1.0,
-      "avg_latency_ms": 2.222,
+      "avg_latency_ms": 2.798,
       "queries": 5
     },
     {
       "method": "HNSW default",
       "setting": "m=16, ef_construct=100, ef=128",
       "avg_overlap": 1.0,
-      "avg_latency_ms": 2.2,
+      "avg_latency_ms": 2.746,
       "queries": 5
     },
     {
       "method": "HNSW weak",
       "setting": "m=4, ef_construct=8, ef=16",
       "avg_overlap": 0.6,
-      "avg_latency_ms": 1.934,
+      "avg_latency_ms": 2.308,
       "queries": 5
     },
     {
       "method": "HNSW weak",
       "setting": "m=4, ef_construct=8, ef=64",
       "avg_overlap": 0.68,
-      "avg_latency_ms": 1.982,
+      "avg_latency_ms": 2.567,
       "queries": 5
     },
     {
       "method": "HNSW weak",
       "setting": "m=4, ef_construct=8, ef=128",
       "avg_overlap": 0.92,
-      "avg_latency_ms": 2.048,
+      "avg_latency_ms": 2.631,
       "queries": 5
     }
   ],
@@ -64,7 +64,7 @@
         4342
       ],
       "overlap": 1.0,
-      "latency_ms": 4.404,
+      "latency_ms": 4.164,
       "hits": [
         {
           "id": 4746,
@@ -110,7 +110,7 @@
         2886
       ],
       "overlap": 1.0,
-      "latency_ms": 2.855,
+      "latency_ms": 2.678,
       "hits": [
         {
           "id": 322,
@@ -156,7 +156,7 @@
         1177
       ],
       "overlap": 1.0,
-      "latency_ms": 2.832,
+      "latency_ms": 2.709,
       "hits": [
         {
           "id": 2079,
@@ -202,7 +202,7 @@
         1901
       ],
       "overlap": 1.0,
-      "latency_ms": 3.186,
+      "latency_ms": 3.496,
       "hits": [
         {
           "id": 2969,
@@ -248,7 +248,7 @@
         5971
       ],
       "overlap": 1.0,
-      "latency_ms": 2.751,
+      "latency_ms": 3.175,
       "hits": [
         {
           "id": 1409,
@@ -298,7 +298,7 @@
         4342
       ],
       "overlap": 1.0,
-      "latency_ms": 2.577
+      "latency_ms": 3.558
     },
     {
       "query_index": 0,
@@ -314,7 +314,7 @@
         4342
       ],
       "overlap": 1.0,
-      "latency_ms": 2.234
+      "latency_ms": 3.357
     },
     {
       "query_index": 0,
@@ -330,7 +330,7 @@
         4342
       ],
       "overlap": 1.0,
-      "latency_ms": 2.116
+      "latency_ms": 2.639
     },
     {
       "query_index": 0,
@@ -346,7 +346,7 @@
         4342
       ],
       "overlap": 1.0,
-      "latency_ms": 1.911
+      "latency_ms": 2.34
     },
     {
       "query_index": 0,
@@ -362,7 +362,7 @@
         4342
       ],
       "overlap": 1.0,
-      "latency_ms": 1.96
+      "latency_ms": 2.081
     },
     {
       "query_index": 0,
@@ -378,7 +378,7 @@
         4342
       ],
       "overlap": 1.0,
-      "latency_ms": 1.969
+      "latency_ms": 2.941
     },
     {
       "query_index": 1,
@@ -394,7 +394,7 @@
         2886
       ],
       "overlap": 1.0,
-      "latency_ms": 2.238
+      "latency_ms": 2.346
     },
     {
       "query_index": 1,
@@ -410,7 +410,7 @@
         2886
       ],
       "overlap": 1.0,
-      "latency_ms": 2.266
+      "latency_ms": 2.368
     },
     {
       "query_index": 1,
@@ -426,7 +426,7 @@
         2886
       ],
       "overlap": 1.0,
-      "latency_ms": 2.223
+      "latency_ms": 2.345
     },
     {
       "query_index": 1,
@@ -442,7 +442,7 @@
         3399
       ],
       "overlap": 0.6,
-      "latency_ms": 1.966
+      "latency_ms": 2.066
     },
     {
       "query_index": 1,
@@ -458,7 +458,7 @@
         4289
       ],
       "overlap": 0.8,
-      "latency_ms": 1.94
+      "latency_ms": 2.429
     },
     {
       "query_index": 1,
@@ -474,7 +474,7 @@
         2886
       ],
       "overlap": 1.0,
-      "latency_ms": 1.96
+      "latency_ms": 2.301
     },
     {
       "query_index": 2,
@@ -490,7 +490,7 @@
         1177
       ],
       "overlap": 1.0,
-      "latency_ms": 2.199
+      "latency_ms": 2.322
     },
     {
       "query_index": 2,
@@ -506,7 +506,7 @@
         1177
       ],
       "overlap": 1.0,
-      "latency_ms": 2.221
+      "latency_ms": 2.482
     },
     {
       "query_index": 2,
@@ -522,7 +522,7 @@
         1177
       ],
       "overlap": 1.0,
-      "latency_ms": 2.254
+      "latency_ms": 2.767
     },
     {
       "query_index": 2,
@@ -538,7 +538,7 @@
         3497
       ],
       "overlap": 0.8,
-      "latency_ms": 1.917
+      "latency_ms": 2.522
     },
     {
       "query_index": 2,
@@ -554,7 +554,7 @@
         1177
       ],
       "overlap": 1.0,
-      "latency_ms": 1.95
+      "latency_ms": 2.691
     },
     {
       "query_index": 2,
@@ -570,7 +570,7 @@
         1177
       ],
       "overlap": 1.0,
-      "latency_ms": 2.049
+      "latency_ms": 2.843
     },
     {
       "query_index": 3,
@@ -586,7 +586,7 @@
         1901
       ],
       "overlap": 1.0,
-      "latency_ms": 2.307
+      "latency_ms": 3.21
     },
     {
       "query_index": 3,
@@ -602,7 +602,7 @@
         1901
       ],
       "overlap": 1.0,
-      "latency_ms": 2.322
+      "latency_ms": 3.175
     },
     {
       "query_index": 3,
@@ -618,7 +618,7 @@
         1901
       ],
       "overlap": 1.0,
-      "latency_ms": 2.345
+      "latency_ms": 3.31
     },
     {
       "query_index": 3,
@@ -634,7 +634,7 @@
         4372
       ],
       "overlap": 0.0,
-      "latency_ms": 1.851
+      "latency_ms": 2.538
     },
     {
       "query_index": 3,
@@ -650,7 +650,7 @@
         4372
       ],
       "overlap": 0.0,
-      "latency_ms": 1.926
+      "latency_ms": 3.166
     },
     {
       "query_index": 3,
@@ -666,7 +666,7 @@
         1901
       ],
       "overlap": 1.0,
-      "latency_ms": 2.27
+      "latency_ms": 2.939
     },
     {
       "query_index": 4,
@@ -682,7 +682,7 @@
         5971
       ],
       "overlap": 1.0,
-      "latency_ms": 1.997
+      "latency_ms": 2.217
     },
     {
       "query_index": 4,
@@ -698,7 +698,7 @@
         5971
       ],
       "overlap": 1.0,
-      "latency_ms": 2.065
+      "latency_ms": 2.607
     },
     {
       "query_index": 4,
@@ -714,7 +714,7 @@
         5971
       ],
       "overlap": 1.0,
-      "latency_ms": 2.06
+      "latency_ms": 2.671
     },
     {
       "query_index": 4,
@@ -730,7 +730,7 @@
         2951
       ],
       "overlap": 0.6,
-      "latency_ms": 2.025
+      "latency_ms": 2.075
     },
     {
       "query_index": 4,
@@ -746,7 +746,7 @@
         2951
       ],
       "overlap": 0.6,
-      "latency_ms": 2.135
+      "latency_ms": 2.469
     },
     {
       "query_index": 4,
@@ -762,7 +762,7 @@
         2951
       ],
       "overlap": 0.6,
-      "latency_ms": 1.993
+      "latency_ms": 2.131
     }
   ]
 }
