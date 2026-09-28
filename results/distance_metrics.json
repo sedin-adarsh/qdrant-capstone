@@ -1,0 +1,582 @@
+[
+  {
+    "query_index": 0,
+    "query": "a question about a graphics card driver",
+    "cosine": [
+      {
+        "id": 4746,
+        "category": "misc.forsale",
+        "score": 0.4824,
+        "snippet": "I have the following Nth Engine graphics cards for sale w/drivers for ...",
+        "vector_length": 2.623
+      },
+      {
+        "id": 175,
+        "category": "comp.os.ms-windows.misc",
+        "score": 0.4697,
+        "snippet": "Yesterday, a friend of mine got a new driver for his card that more th...",
+        "vector_length": 1.876
+      },
+      {
+        "id": 2556,
+        "category": "comp.os.ms-windows.misc",
+        "score": 0.4666,
+        "snippet": "I would like to find a Windows 3.x driver for a video board that is ba...",
+        "vector_length": 2.679
+      },
+      {
+        "id": 1880,
+        "category": "comp.os.ms-windows.misc",
+        "score": 0.4374,
+        "snippet": "Hi. I am having some interesting problems with my Boca graphics card, ...",
+        "vector_length": 2.094
+      },
+      {
+        "id": 4342,
+        "category": "comp.os.ms-windows.misc",
+        "score": 0.4347,
+        "snippet": "Hello. I purchased a video card called ET-4000 true color card which c...",
+        "vector_length": 2.649
+      }
+    ],
+    "euclid": [
+      {
+        "id": 4746,
+        "category": "misc.forsale",
+        "score": 6.2031,
+        "snippet": "I have the following Nth Engine graphics cards for sale w/drivers for ...",
+        "vector_length": 2.623
+      },
+      {
+        "id": 2556,
+        "category": "comp.os.ms-windows.misc",
+        "score": 6.2442,
+        "snippet": "I would like to find a Windows 3.x driver for a video board that is ba...",
+        "vector_length": 2.679
+      },
+      {
+        "id": 4342,
+        "category": "comp.os.ms-windows.misc",
+        "score": 6.3415,
+        "snippet": "Hello. I purchased a video card called ET-4000 true color card which c...",
+        "vector_length": 2.649
+      },
+      {
+        "id": 175,
+        "category": "comp.os.ms-windows.misc",
+        "score": 6.3652,
+        "snippet": "Yesterday, a friend of mine got a new driver for his card that more th...",
+        "vector_length": 1.876
+      },
+      {
+        "id": 1880,
+        "category": "comp.os.ms-windows.misc",
+        "score": 6.3948,
+        "snippet": "Hi. I am having some interesting problems with my Boca graphics card, ...",
+        "vector_length": 2.094
+      }
+    ],
+    "dot": [
+      {
+        "id": 165,
+        "category": "comp.sys.ibm.pc.hardware",
+        "score": 12.5808,
+        "snippet": "I would appreciate the driver name from CICA which functions as a 256 ...",
+        "vector_length": 4.176
+      },
+      {
+        "id": 523,
+        "category": "comp.os.ms-windows.misc",
+        "score": 10.3134,
+        "snippet": "Hi, I have a trident TVGA-8900 video card and need the updated drivers...",
+        "vector_length": 4.372
+      },
+      {
+        "id": 2605,
+        "category": "comp.sys.ibm.pc.hardware",
+        "score": 9.6896,
+        "snippet": "It's the video card. It's 8514/A compatible, which means it uses the s...",
+        "vector_length": 3.723
+      },
+      {
+        "id": 4270,
+        "category": "comp.sys.ibm.pc.hardware",
+        "score": 9.6718,
+        "snippet": "I have a 486DX 25mhz with local bus. Would I see much of an increase i...",
+        "vector_length": 3.92
+      },
+      {
+        "id": 5276,
+        "category": "comp.os.ms-windows.misc",
+        "score": 9.5316,
+        "snippet": "I am looking for a WINDOW 3.1 driver for Cornerstone DualPage (Corners...",
+        "vector_length": 3.464
+      }
+    ],
+    "normalized_vectors_all_metrics_agree": true
+  },
+  {
+    "query_index": 1,
+    "query": "debate about gun control laws",
+    "cosine": [
+      {
+        "id": 322,
+        "category": "talk.politics.guns",
+        "score": 0.6616,
+        "snippet": "I agree. Sad, but true. Please name one. .... Upon which our Bill of R...",
+        "vector_length": 1.63
+      },
+      {
+        "id": 1425,
+        "category": "talk.politics.guns",
+        "score": 0.6374,
+        "snippet": "Though I agree this is not the place to discuss guns, I note in passin...",
+        "vector_length": 3.058
+      },
+      {
+        "id": 1159,
+        "category": "talk.politics.guns",
+        "score": 0.5917,
+        "snippet": "Not so. Surveys have shown while the public thinks certain types of gu...",
+        "vector_length": 1.952
+      },
+      {
+        "id": 4362,
+        "category": "talk.politics.guns",
+        "score": 0.5818,
+        "snippet": "I think that HCI people honestly believe that passing more gun control...",
+        "vector_length": 1.914
+      },
+      {
+        "id": 2886,
+        "category": "talk.politics.guns",
+        "score": 0.5657,
+        "snippet": "And you'd be wrong about that too. Note that Texas isn't unique in thi...",
+        "vector_length": 1.902
+      }
+    ],
+    "euclid": [
+      {
+        "id": 1425,
+        "category": "talk.politics.guns",
+        "score": 5.4836,
+        "snippet": "Though I agree this is not the place to discuss guns, I note in passin...",
+        "vector_length": 3.058
+      },
+      {
+        "id": 322,
+        "category": "talk.politics.guns",
+        "score": 5.9489,
+        "snippet": "I agree. Sad, but true. Please name one. .... Upon which our Bill of R...",
+        "vector_length": 1.63
+      },
+      {
+        "id": 1159,
+        "category": "talk.politics.guns",
+        "score": 5.9573,
+        "snippet": "Not so. Surveys have shown while the public thinks certain types of gu...",
+        "vector_length": 1.952
+      },
+      {
+        "id": 1261,
+        "category": "rec.autos",
+        "score": 5.9824,
+        "snippet": ": >> : >I'm not going to argue the issue of carrying weapons, but I wo...",
+        "vector_length": 2.114
+      },
+      {
+        "id": 4362,
+        "category": "talk.politics.guns",
+        "score": 5.993,
+        "snippet": "I think that HCI people honestly believe that passing more gun control...",
+        "vector_length": 1.914
+      }
+    ],
+    "dot": [
+      {
+        "id": 1425,
+        "category": "talk.politics.guns",
+        "score": 13.4501,
+        "snippet": "Though I agree this is not the place to discuss guns, I note in passin...",
+        "vector_length": 3.058
+      },
+      {
+        "id": 3399,
+        "category": "talk.politics.guns",
+        "score": 11.2843,
+        "snippet": "Firearm? Let's not even consider long knives (swords), which were also...",
+        "vector_length": 2.907
+      },
+      {
+        "id": 5382,
+        "category": "talk.politics.guns",
+        "score": 10.7231,
+        "snippet": "I first read and consulted rec.guns in the summer of 1991. I just purc...",
+        "vector_length": 3.999
+      },
+      {
+        "id": 2423,
+        "category": "rec.autos",
+        "score": 9.1514,
+        "snippet": "Maryland and other states. To the original poster: Read the last 3-4 i...",
+        "vector_length": 3.396
+      },
+      {
+        "id": 2690,
+        "category": "talk.politics.guns",
+        "score": 8.9293,
+        "snippet": "Even better, let's pass a law making it illegal to kill people with bo...",
+        "vector_length": 3.507
+      }
+    ],
+    "normalized_vectors_all_metrics_agree": true
+  },
+  {
+    "query_index": 2,
+    "query": "space shuttle launch and NASA missions",
+    "cosine": [
+      {
+        "id": 2079,
+        "category": "sci.space",
+        "score": 0.5243,
+        "snippet": "Sorry for asking a question that's not entirely based on the technical...",
+        "vector_length": 1.7
+      },
+      {
+        "id": 1898,
+        "category": "sci.space",
+        "score": 0.4511,
+        "snippet": "SSF is up for redesign again. Let's do it right this time! Let's step ...",
+        "vector_length": 1.498
+      },
+      {
+        "id": 5623,
+        "category": "sci.space",
+        "score": 0.4414,
+        "snippet": "There is a guy in NASA Johnson Space Center that might answer your que...",
+        "vector_length": 1.878
+      },
+      {
+        "id": 2137,
+        "category": "sci.space",
+        "score": 0.4386,
+        "snippet": "a yes, but the improvement in boost orbit to the HST is Significant, a...",
+        "vector_length": 2.404
+      },
+      {
+        "id": 1177,
+        "category": "sci.space",
+        "score": 0.4264,
+        "snippet": "Back in January and February there were several articles (Wash Post, T...",
+        "vector_length": 1.468
+      }
+    ],
+    "euclid": [
+      {
+        "id": 2079,
+        "category": "sci.space",
+        "score": 5.1827,
+        "snippet": "Sorry for asking a question that's not entirely based on the technical...",
+        "vector_length": 1.7
+      },
+      {
+        "id": 2137,
+        "category": "sci.space",
+        "score": 5.2761,
+        "snippet": "a yes, but the improvement in boost orbit to the HST is Significant, a...",
+        "vector_length": 2.404
+      },
+      {
+        "id": 5623,
+        "category": "sci.space",
+        "score": 5.3131,
+        "snippet": "There is a guy in NASA Johnson Space Center that might answer your que...",
+        "vector_length": 1.878
+      },
+      {
+        "id": 1898,
+        "category": "sci.space",
+        "score": 5.3613,
+        "snippet": "SSF is up for redesign again. Let's do it right this time! Let's step ...",
+        "vector_length": 1.498
+      },
+      {
+        "id": 5396,
+        "category": "sci.space",
+        "score": 5.3623,
+        "snippet": "I'm replying to someone who asked for information on space camp. I hav...",
+        "vector_length": 2.185
+      }
+    ],
+    "dot": [
+      {
+        "id": 4940,
+        "category": "sci.space",
+        "score": 9.6306,
+        "snippet": "Are you volunteering? :) Will NASA have \"available landing sites\" in t...",
+        "vector_length": 4.079
+      },
+      {
+        "id": 2095,
+        "category": "sci.space",
+        "score": 8.2428,
+        "snippet": "Has anyone heard of or Played Buzz Aldrin's Race into Space? Does anyo...",
+        "vector_length": 4.419
+      },
+      {
+        "id": 2754,
+        "category": "talk.politics.misc",
+        "score": 6.5915,
+        "snippet": "Do you mean besides the National Guard? Outside of military reservatio...",
+        "vector_length": 4.46
+      },
+      {
+        "id": 526,
+        "category": "sci.space",
+        "score": 6.4722,
+        "snippet": "What fraction of the NASA workforce is civil servant as opposed to con...",
+        "vector_length": 3.303
+      },
+      {
+        "id": 5965,
+        "category": "sci.space",
+        "score": 6.2427,
+        "snippet": "Why would you want to do that? The goal is to do it cheaper (remember,...",
+        "vector_length": 3.062
+      }
+    ],
+    "normalized_vectors_all_metrics_agree": true
+  },
+  {
+    "query_index": 3,
+    "query": "hockey playoff predictions",
+    "cosine": [
+      {
+        "id": 2969,
+        "category": "rec.sport.hockey",
+        "score": 0.6883,
+        "snippet": "Here is yet another prediction for them great playoffs! (you may laugh...",
+        "vector_length": 1.992
+      },
+      {
+        "id": 4996,
+        "category": "rec.sport.hockey",
+        "score": 0.6671,
+        "snippet": "Here are my predictions (try not to laugh hysterically) Somebody save ...",
+        "vector_length": 2.129
+      },
+      {
+        "id": 1888,
+        "category": "rec.sport.hockey",
+        "score": 0.6446,
+        "snippet": "Here are the standings after game 2 of each of the divisional semi-fin...",
+        "vector_length": 1.404
+      },
+      {
+        "id": 5387,
+        "category": "rec.sport.hockey",
+        "score": 0.6222,
+        "snippet": "3rd uptade: Here are the standings for the poll after 39 votes: 5 poin...",
+        "vector_length": 1.483
+      },
+      {
+        "id": 1901,
+        "category": "rec.sport.hockey",
+        "score": 0.6084,
+        "snippet": "Stanley Cup Playoff stats through games played Sunday, April 25 1993 -...",
+        "vector_length": 2.06
+      }
+    ],
+    "euclid": [
+      {
+        "id": 4996,
+        "category": "rec.sport.hockey",
+        "score": 6.1931,
+        "snippet": "Here are my predictions (try not to laugh hysterically) Somebody save ...",
+        "vector_length": 2.129
+      },
+      {
+        "id": 2969,
+        "category": "rec.sport.hockey",
+        "score": 6.2064,
+        "snippet": "Here is yet another prediction for them great playoffs! (you may laugh...",
+        "vector_length": 1.992
+      },
+      {
+        "id": 1901,
+        "category": "rec.sport.hockey",
+        "score": 6.367,
+        "snippet": "Stanley Cup Playoff stats through games played Sunday, April 25 1993 -...",
+        "vector_length": 2.06
+      },
+      {
+        "id": 4057,
+        "category": "rec.sport.hockey",
+        "score": 6.4003,
+        "snippet": "The Hawks win!! Jermey Roenick scored his 50 th goal and the Hawks put...",
+        "vector_length": 3.482
+      },
+      {
+        "id": 2307,
+        "category": "rec.sport.hockey",
+        "score": 6.4182,
+        "snippet": "Tonight will see the Toronto Maple Leafs, as some have guessed, come o...",
+        "vector_length": 2.593
+      }
+    ],
+    "dot": [
+      {
+        "id": 1197,
+        "category": "rec.sport.hockey",
+        "score": 14.8832,
+        "snippet": "If I'm not mistaken, San Jose had more wins than Ottawa. First tiebrea...",
+        "vector_length": 4.51
+      },
+      {
+        "id": 3553,
+        "category": "rec.sport.hockey",
+        "score": 14.0136,
+        "snippet": "If the Islanders beat the Devils tonight, they would finish with ident...",
+        "vector_length": 4.1
+      },
+      {
+        "id": 4057,
+        "category": "rec.sport.hockey",
+        "score": 13.0094,
+        "snippet": "The Hawks win!! Jermey Roenick scored his 50 th goal and the Hawks put...",
+        "vector_length": 3.482
+      },
+      {
+        "id": 3688,
+        "category": "rec.sport.hockey",
+        "score": 12.8843,
+        "snippet": "Ottawa picks first, because they had fewer wins during the season, the...",
+        "vector_length": 3.138
+      },
+      {
+        "id": 5993,
+        "category": "rec.sport.hockey",
+        "score": 12.4128,
+        "snippet": "and guess which game ESPN is showing in my area on Thursday - yep, Pen...",
+        "vector_length": 3.843
+      }
+    ],
+    "normalized_vectors_all_metrics_agree": true
+  },
+  {
+    "query_index": 4,
+    "query": "encryption and government key escrow",
+    "cosine": [
+      {
+        "id": 1409,
+        "category": "sci.crypt",
+        "score": 0.7068,
+        "snippet": "From: brad@clarinet.com (Brad Templeton) Let's assume, for the moment,...",
+        "vector_length": 1.969
+      },
+      {
+        "id": 3966,
+        "category": "sci.crypt",
+        "score": 0.6934,
+        "snippet": "brings up the issue of how the escrow agent will be paid, and the fact...",
+        "vector_length": 1.875
+      },
+      {
+        "id": 4872,
+        "category": "sci.crypt",
+        "score": 0.6401,
+        "snippet": "It was implied in the first technical posting by Dorothy Denning that ...",
+        "vector_length": 1.872
+      },
+      {
+        "id": 5256,
+        "category": "sci.crypt",
+        "score": 0.609,
+        "snippet": "Interestingly enough, in designing the escrow, we may want to use some...",
+        "vector_length": 1.835
+      },
+      {
+        "id": 5971,
+        "category": "sci.crypt",
+        "score": 0.5597,
+        "snippet": "Actually the govrnment is telling you that if you want to use their \"p...",
+        "vector_length": 1.993
+      }
+    ],
+    "euclid": [
+      {
+        "id": 1409,
+        "category": "sci.crypt",
+        "score": 5.9211,
+        "snippet": "From: brad@clarinet.com (Brad Templeton) Let's assume, for the moment,...",
+        "vector_length": 1.969
+      },
+      {
+        "id": 3966,
+        "category": "sci.crypt",
+        "score": 6.0004,
+        "snippet": "brings up the issue of how the escrow agent will be paid, and the fact...",
+        "vector_length": 1.875
+      },
+      {
+        "id": 4872,
+        "category": "sci.crypt",
+        "score": 6.1196,
+        "snippet": "It was implied in the first technical posting by Dorothy Denning that ...",
+        "vector_length": 1.872
+      },
+      {
+        "id": 5256,
+        "category": "sci.crypt",
+        "score": 6.2024,
+        "snippet": "Interestingly enough, in designing the escrow, we may want to use some...",
+        "vector_length": 1.835
+      },
+      {
+        "id": 5971,
+        "category": "sci.crypt",
+        "score": 6.253,
+        "snippet": "Actually the govrnment is telling you that if you want to use their \"p...",
+        "vector_length": 1.993
+      }
+    ],
+    "dot": [
+      {
+        "id": 4835,
+        "category": "sci.crypt",
+        "score": 10.3862,
+        "snippet": "Right on the heels of the Clinton \"registered encryption key\" debacle ...",
+        "vector_length": 3.416
+      },
+      {
+        "id": 1409,
+        "category": "sci.crypt",
+        "score": 9.9452,
+        "snippet": "From: brad@clarinet.com (Brad Templeton) Let's assume, for the moment,...",
+        "vector_length": 1.969
+      },
+      {
+        "id": 3966,
+        "category": "sci.crypt",
+        "score": 9.2923,
+        "snippet": "brings up the issue of how the escrow agent will be paid, and the fact...",
+        "vector_length": 1.875
+      },
+      {
+        "id": 2171,
+        "category": "sci.crypt",
+        "score": 9.1213,
+        "snippet": "Good idea, But why put all the eggs in one basket? Given that the escr...",
+        "vector_length": 2.719
+      },
+      {
+        "id": 181,
+        "category": "sci.crypt",
+        "score": 8.6421,
+        "snippet": "Dorothy Denning, _Cryptography and Data Security_, 1982, Addison Wesle...",
+        "vector_length": 3.033
+      }
+    ],
+    "normalized_vectors_all_metrics_agree": true
+  }
+]

@@ -49,3 +49,23 @@ The queries come from [queries.md](queries.md).
 Note: `all-MiniLM-L6-v2` ends with a built-in `Normalize` layer, so
 `normalize_embeddings=False` alone would still give length-1 vectors. For the
 raw vectors, `embed.py` uses the model without that last layer.
+
+## 3. Create the Qdrant collections
+
+```bash
+python qdrant_setup.py
+```
+
+Deletes and recreates every collection (safe to re-run), uploads the vectors in
+batches, then waits until Qdrant has actually built the HNSW index
+(`indexed_vectors_count == points_count`). This is a good moment for the
+dashboard screenshot.
+
+## 4. Run the comparison
+
+```bash
+python compare.py            # all 5 queries, writes results/*.json
+python compare.py --query 0  # one query only (for the demo; does not overwrite results/)
+```
+
+Findings are written up in [comparison.md](comparison.md).
