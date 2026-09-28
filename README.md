@@ -24,3 +24,28 @@ Then open the dashboard in a browser: <http://localhost:6333/dashboard>
 > `capstone_euclid`, `capstone_dot`, `capstone_hnsw_weak`) are visible.
 
 Stop Qdrant with `docker compose down` (the data stays in `./qdrant_storage`).
+
+## 1. Python setup
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+# optional, avoids downloading the big GPU build of PyTorch:
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements.txt
+```
+
+## 2. Dataset and embeddings
+
+```bash
+python data.py    # optional: shows the 6000-document sample per category
+python embed.py   # downloads the model + dataset, writes everything into data/
+```
+
+`embed.py` creates `data/vectors_normalized.npy`, `data/vectors_raw.npy`,
+`data/metadata.json`, `data/queries.json` and the two query-vector files.
+The queries come from [queries.md](queries.md).
+
+Note: `all-MiniLM-L6-v2` ends with a built-in `Normalize` layer, so
+`normalize_embeddings=False` alone would still give length-1 vectors. For the
+raw vectors, `embed.py` uses the model without that last layer.
